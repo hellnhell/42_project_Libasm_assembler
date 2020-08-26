@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main2.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emartin- <emartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:34:07 by emartin-          #+#    #+#             */
-/*   Updated: 2020/08/25 19:49:25 by emartin-         ###   ########.fr       */
+/*   Updated: 2020/08/26 19:05:07 by emartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <fcntl.h>
 
 
-/*void	check_ft_strlen()
+void	check_ft_strlen()
 {
 	char *empty = "";
 	char *hello_world = "Hello world !";
@@ -91,7 +91,7 @@ void	check_ft_read()
 
 	printf("\n\n============== READ =============\n\n");
 	printf("====First try ====>\n");
-	fd = open("main2.c", O_RDONLY);
+	fd = open("main.c", O_RDONLY);
 	rlibc = read(fd, buffer, 50);
 	rlibasm = ft_read(fd, buffer, 50);
 	printf("libc : [%d]\n", rlibc);
@@ -109,7 +109,7 @@ void	check_ft_read()
 	rlibasm = ft_read(fd, buffer, 890);
 	printf("libasm : [%d]\n", rlibasm);
 	close(fd);	
-}*/
+}
 
 void	check_ft_write()
 {
@@ -119,7 +119,7 @@ void	check_ft_write()
 	char	*gon = "imbecil";
 	char	*no = " ";
 
-	/*printf("\n\n============== WRITE =============\n\n");
+	printf("\n\n============== WRITE =============\n\n");
 	printf("====First try ====>\n");
 	rlibc = write(1, hello, 12);
 	printf("\n");
@@ -127,6 +127,7 @@ void	check_ft_write()
 	printf("\n");
 	printf("libc : [%d]\n", rlibc);
 	printf("libasm : [%d]\n", rlibasm);
+	printf("\n");
 
 	printf("====Gons try ====>\n");
 	rlibc = write(1, gon, 7);
@@ -135,6 +136,7 @@ void	check_ft_write()
 	printf("\n");
 	printf("libc : [%d]\n", rlibc);
 	printf("libasm : [%d]\n", rlibasm);
+	printf("\n");
 	
 	printf("====Null try ====>\n");
 	rlibc = write(1, no, 1);
@@ -142,9 +144,7 @@ void	check_ft_write()
 	rlibasm = ft_write(1, no, 1);
 	printf("\n");
 	printf("libc : [%d]\n", rlibc);
-	printf("libasm : [%d]\n", rlibasm);
-	*/
-	
+	printf("libasm : [%d]\n", rlibasm);	
 }
 
 void	check_ft_strdup()
@@ -179,30 +179,16 @@ void	check_ft_strdup()
 	free(save2);
 	save2 = NULL;
 	printf("\n");
-
-	// ------- NULL = SEGFAULT
-	// printf("%-20s: NULL\n", "char *");
-	// save = strdup(NULL);
-	// printf("%-20s: \"%s\"\n", "libc", save);
-	// free(save);
-	// save = NULL;
-	// save2 = ft_strdup(NULL);
-	// printf("%-20s: \"%s\"\n", "libasm", save2);
-	// free(save2);
-	// save2 = NULL;
-	// printf("\n");
-
 }
 
 
 int		main(void)
 {
-	//check_ft_strlen();
-	//check_ft_strcpy();
-	//check_ft_strcmp();
-	//check_ft_read();
-	//check_ft_write();
+	check_ft_strlen();
+	check_ft_strcpy();
+	check_ft_strcmp();
+	check_ft_read();
+	check_ft_write();
 	check_ft_strdup();
-	
 	return (0);
 }
