@@ -6,7 +6,7 @@
 /*   By: emartin- <emartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:34:07 by emartin-          #+#    #+#             */
-/*   Updated: 2020/08/26 19:05:07 by emartin-         ###   ########.fr       */
+/*   Updated: 2020/09/02 20:24:26 by emartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <errno.h>
 
 
 void	check_ft_strlen()
@@ -24,9 +25,15 @@ void	check_ft_strlen()
 	char *alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 	printf("\n\n============== LEN =============\n\n");
-	printf("Empty :   Liabsm : %zu    Libc : %lu\n", ft_strlen(empty), strlen(empty));
-	printf("Hello :   Liabsm : %zu    Libc : %lu\n", ft_strlen(hello_world), strlen(hello_world));
-	printf("Alphabet :   Liabsm : %zu    Libc : %lu\n", ft_strlen(alphabet), strlen(alphabet));
+	printf("%-20s: \"%s\"\n","Empty", empty);
+	printf("%-20s: \"%lu\"\n", "libc", strlen(empty));
+	printf("%-20s: \"%zu\"\n", "libasm", ft_strlen(empty));
+	printf("%-20s: \"%s\"\n","hello_world", hello_world);
+	printf("%-20s: \"%lu\"\n", "libc", strlen(hello_world));
+	printf("%-20s: \"%zu\"\n", "libasm", ft_strlen(hello_world));
+	printf("%-20s: \"%s\"\n","Empty", alphabet);
+	printf("%-20s: \"%lu\"\n", "libc", strlen(alphabet));
+	printf("%-20s: \"%zu\"\n", "libasm", ft_strlen(alphabet));
 }
 
 void clear_buffer(char *buffer, int size)
@@ -88,9 +95,10 @@ void	check_ft_read()
 	int 	fd;
 	int 	rlibc;
 	int		rlibasm;
+	
 
 	printf("\n\n============== READ =============\n\n");
-	printf("====First try ====>\n");
+	printf("====Open field try ====>\n");
 	fd = open("main.c", O_RDONLY);
 	rlibc = read(fd, buffer, 50);
 	rlibasm = ft_read(fd, buffer, 50);
@@ -100,6 +108,18 @@ void	check_ft_read()
 	printf("\n");
 
 	printf("====Second try ====>\n");
+	fd = open("hola", O_RDONLY);
+	rlibc = read(fd, buffer, 890);
+	printf("libc : [%d]\n", rlibc);
+	close(fd);
+	
+	fd = open("hola", O_RDONLY);
+	rlibasm = ft_read(fd, buffer, 890);
+	printf("libasm : [%d]\n", rlibasm);
+	close(fd);	
+	
+
+	printf("====Crash try ====>\n");
 	fd = open("wrong", O_RDONLY);
 	rlibc = read(fd, buffer, 890);
 	printf("libc : [%d]\n", rlibc);
@@ -109,42 +129,56 @@ void	check_ft_read()
 	rlibasm = ft_read(fd, buffer, 890);
 	printf("libasm : [%d]\n", rlibasm);
 	close(fd);	
+	
+	/*printf("====Screen try ====>\n");
+	rlibc = read(0, buffer, 890);
+	printf("libc : [%d]\n", rlibc);
+	close(fd);
+	
+	rlibasm = ft_read(0, buffer, 890);
+	printf("libasm : [%d]\n", rlibasm);
+	close(fd);*/
+	
 }
 
 void	check_ft_write()
 {
-	char 	hello[12] = "Hello World\0";
+	char	buffer[900];
+	int 	fd;
 	int 	rlibc;
 	int		rlibasm;
-	char	*gon = "imbecil";
-	char	*no = " ";
 
 	printf("\n\n============== WRITE =============\n\n");
 	printf("====First try ====>\n");
-	rlibc = write(1, hello, 12);
-	printf("\n");
-	rlibasm = ft_write(1, hello, 12);
-	printf("\n");
+	fd = open("hola", O_WRONLY);
+	rlibc = write(fd, buffer, 890);
 	printf("libc : [%d]\n", rlibc);
-	printf("libasm : [%d]\n", rlibasm);
-	printf("\n");
-
-	printf("====Gons try ====>\n");
-	rlibc = write(1, gon, 7);
-	printf("\n");
-	rlibasm = ft_write(1, gon, 7);
-	printf("\n");
-	printf("libc : [%d]\n", rlibc);
-	printf("libasm : [%d]\n", rlibasm);
-	printf("\n");
+	close(fd);
 	
-	printf("====Null try ====>\n");
-	rlibc = write(1, no, 1);
-	printf("\n");
-	rlibasm = ft_write(1, no, 1);
-	printf("\n");
+	fd = open("hola", O_WRONLY);
+	rlibasm = ft_write(fd, buffer, 890);
+	printf("libasm : [%d]\n", rlibasm);
+	close(fd);
+	
+	printf("====Crash try ====>\n");
+	fd = open("wrong", O_WRONLY);
+	rlibc = write(fd, buffer, 890);
 	printf("libc : [%d]\n", rlibc);
-	printf("libasm : [%d]\n", rlibasm);	
+	close(fd);
+	
+	fd = open("wrong", O_WRONLY);
+	rlibasm = ft_write(fd, buffer, 890);
+	printf("libasm : [%d]\n", rlibasm);
+	close(fd);	
+	
+	printf("====Screen try ====>\n");
+	rlibc = write(1, buffer, 890);
+	printf("libc : [%d]\n", rlibc);
+	close(fd);
+	
+	rlibasm = ft_write(1, buffer, 890); 
+	printf("libasm : [%d]\n", rlibasm);
+	close(fd);	
 }
 
 void	check_ft_strdup()

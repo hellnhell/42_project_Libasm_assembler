@@ -1,26 +1,26 @@
 
 segment		.text
-	global	_ft_strcmp
+	global		_ft_strcmp
 
 _ft_strcmp:		;(s1, s2)
-	mov		rax, 0
-	jmp 	compare
+	mov			rax, 0
+	jmp 		_compare
 
-compare:
-	mov		al, BYTE [rdi]
-	mov		bl, BYTE [rsi]
-	cmp		al, 0
-	je		exit
-	cmp		bl, 0
-	je 		exit
-	cmp		bl, al
-	jne		exit
-	inc 	rdi
-	inc		rsi
-	call	compare
+_compare:
+	mov			al, BYTE [rdi]
+	mov			bl, BYTE [rsi]
+	cmp			al, 0
+	je			_exit
+	cmp			bl, 0
+	je 			_exit
+	cmp			bl, al
+	jne			_exit
+	inc 		rdi
+	inc			rsi
+	call		_compare
 
-exit:
-	movzx	rax, al
-	movzx	rbx, bl
-	sub		rax, rbx
+_exit:
+	movzx		rax, al
+	movzx		rbx, bl
+	sub			rax, rbx
 	ret
