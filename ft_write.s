@@ -10,9 +10,9 @@ _ft_write:
 	ret
 
 _error:
-    mov         rdx, rax            ; save errno
-    call        ___error            ; retrieve address to errno
-    mov         [rax], rdx          ; put errno in return value of __error (pointer to errno)
+    mov         rdx, rax            ; guardas errno
+    call        ___error            ; 
+    mov         [rax], rdx          ; Pones errno como valor de ret de ___error(pointer a errno)
     mov         rax, -1
     ret
 

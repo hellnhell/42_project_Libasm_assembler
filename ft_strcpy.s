@@ -13,7 +13,7 @@ _increment:
 	inc 		rcx
 
 _copy:
-	cmp			dl, BYTE [rsi + rcx]	;Pones dl como operador de 8 bits pues estas comparando caracteres (rsi + rcx = src[i])
+	cmp			dl, BYTE [rsi + rcx]	;Pones dl como operador de 8 bits pues estás comparando caracteres (rsi + rcx = src[i])
 	cmp			BYTE [rdi + rcx], dl	;copias cada bit en rdi(dest)
 	cmp			dl, 0					
 	jnz			_increment				;vas aumentando el contador
