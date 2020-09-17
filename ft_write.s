@@ -12,7 +12,7 @@ _ft_write:
 _error:
     mov         rdx, rax            ; guardas errno
     call        ___error            ; 
-    mov         [rax], rdx          ; Pones errno como valor de ret de ___error(pointer a errno)
+    mov         [rax], rdx          ; Pones errno como valor de ret de ___erro(pointer a errno)
     mov         rax, -1
     ret
 
